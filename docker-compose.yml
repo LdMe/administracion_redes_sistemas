@@ -3,3 +3,16 @@ services:
   mysql:
     image: mysql:5.7
     container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - database:/var/lib/mysql
+      - ./db/data.sql:/docker-entrypoint-initdb.d/data.sql
+    environment:
+      MYSQL_DATABASE: 'axso-db'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+
+volumes:
+  database:
