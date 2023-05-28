@@ -13,6 +13,32 @@ services:
       MYSQL_USER: '${MYSQL_USER}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+    networks:
+      - web-network
+  web:
+    build: ./web
+    container_name: web
+    environment:
+      MYSQL_DATABASE: 'axso-db'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+    ports:
+      - "8000:5000"
+    networks:
+      - web-network
+
+  reverse-proxy:
+    build: ./reverse-proxy
+    container_name: reverse-proxy
+    ports:
+      - "80:80"
+    networks:
+      - web-network
 
 volumes:
   database:
+
+networks:
+  web-network:
+
