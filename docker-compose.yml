@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
       MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
     networks:
-      - web-network
+      - db-network
   web:
     build: ./web
     container_name: web
@@ -27,6 +27,7 @@ services:
       - "8000:5000"
     networks:
       - web-network
+      - db-network
 
   reverse-proxy:
     build: ./reverse-proxy
@@ -41,4 +42,6 @@ volumes:
 
 networks:
   web-network:
+  db-network:
+  
 
